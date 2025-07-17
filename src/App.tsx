@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Users, Clock, Activity, Settings as SettingsIcon, BarChart3, UserCheck, AlertCircle, ChevronRight, Monitor, Smartphone, Menu, X, Sun, Moon, Phone } from 'lucide-react';
+import { Users, Clock, Activity, Settings as SettingsIcon, BarChart3, UserCheck, AlertCircle, ChevronRight, Monitor, Smartphone, Menu, X, Sun, Moon, Phone, LogOut } from 'lucide-react';
 import Dashboard from './components/Dashboard';
 import CustomerKiosk from './components/CustomerKiosk';
 import StaffPanel from './components/StaffPanel';
@@ -7,20 +7,34 @@ import Analytics from './components/Analytics';
 import QueueManager from './components/QueueManager';
 import Contact from './components/Contact';
 import Settings from './components/Settings';
+import Login from './components/Login';
+import Signup from './components/Signup';
 import Footer from './components/Footer';
 import { QueueProvider } from './context/QueueContext';
 import { ThemeProvider, useTheme } from './context/ThemeContext';
+import { AuthProvider, useAuth } from './context/AuthContext';
 
 function AppContent() {
   const { isDark, toggleTheme } = useTheme();
+  const { user, isAuthenticated, logout } = useAuth();
   const [activeView, setActiveView] = useState('dashboard');
   const [currentTime, setCurrentTime] = useState(new Date());
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [authView, setAuthView] = useState<'login' | 'signup'>('login');
 
   useEffect(() => {
     const timer = setInterval(() => setCurrentTime(new Date()), 1000);
     return () => clearInterval(timer);
   }, []);
+
+  // If not authenticated, show login/signup
+  if (!isAuthenticated) {
+    if (authView === 'login') {
+      return <Login onSwitchToSignup={() => setAuthView('signup')} />;
+    } else {
+      return <Signup onSwitchToLogin={() => setAuthView('login')} />;
+    }
+  }
 
   const navigation = [
     { id: 'dashboard', label: 'Dashboard', icon: Activity, color: 'bg-primary-600' },
@@ -68,6 +82,32 @@ function AppContent() {
               <h1 className="text-lg lg:text-xl font-bold text-gray-900 dark:text-white">Qtron</h1>
               <p className="text-sm text-gray-600 dark:text-gray-400">Smart Queue System</p>
             </div>
+          </div>
+          
+          {/* User Info */}
+          <div className="px-4 py-3 border-t border-gray-200 dark:border-gray-700">
+            <div className="flex items-center space-x-3 mb-3">
+              <div className="w-8 h-8 bg-primary-100 dark:bg-primary-900 rounded-full flex items-center justify-center">
+                <span className="text-sm font-medium text-primary-600 dark:text-primary-400">
+                  {user?.firstName?.[0]}{user?.lastName?.[0]}
+                </span>
+              </div>
+              <div>
+                <p className="text-sm font-medium text-gray-900 dark:text-white">
+                  {user?.firstName} {user?.lastName}
+                </p>
+                <p className="text-xs text-gray-600 dark:text-gray-400 capitalize">
+                  {user?.role} • {user?.username}
+                </p>
+              </div>
+            </div>
+            <button
+              onClick={logout}
+              className="w-full flex items-center space-x-2 px-3 py-2 text-sm text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900 rounded-lg transition-colors"
+            >
+              <LogOut className="w-4 h-4" />
+              <span>Sign Out</span>
+            </button>
           </div>
         </div>
 
@@ -182,11 +222,13 @@ function AppContent() {
 
 function App() {
   return (
-    <ThemeProvider>
-      <QueueProvider>
-        <AppContent />
-      </QueueProvider>
-    </ThemeProvider>
+    <AuthProvider>
+      <ThemeProvider>
+        <QueueProvider>
+          <AppContent />
+        </QueueProvider>
+      </ThemeProvider>
+    </AuthProvider>
   );
 }
 
