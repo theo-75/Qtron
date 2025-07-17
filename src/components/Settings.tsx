@@ -201,7 +201,7 @@ const Settings = () => {
           </label>
           <input
             type="tel"
-            value={orgSettings.phone}
+            value="+233 599 656 732"
             onChange={(e) => setOrgSettings({...orgSettings, phone: e.target.value})}
             className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary-600 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
           />
@@ -213,7 +213,7 @@ const Settings = () => {
           Address
         </label>
         <textarea
-          value={orgSettings.address}
+          value="KNUST Campus, Kumasi, Ghana"
           onChange={(e) => setOrgSettings({...orgSettings, address: e.target.value})}
           rows={3}
           className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary-600 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
@@ -936,7 +936,7 @@ const Settings = () => {
               </label>
               <input
                 type="email"
-                defaultValue="billing@citygeneral.com"
+               defaultValue="qtron@gmail.com"
                 className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary-600 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
               />
             </div>

@@ -111,17 +111,17 @@ const Footer = () => {
             <div className="space-y-3">
               <div className="flex items-center space-x-3">
                 <Phone className="w-4 h-4 text-gray-400" />
-                <span className="text-sm text-gray-600 dark:text-gray-400">+1 (555) 123-4567</span>
+                <span className="text-sm text-gray-600 dark:text-gray-400">+233 599 656 732</span>
               </div>
               <div className="flex items-center space-x-3">
                 <Mail className="w-4 h-4 text-gray-400" />
-                <span className="text-sm text-gray-600 dark:text-gray-400">support@qtron.ai</span>
+                <span className="text-sm text-gray-600 dark:text-gray-400">qtron@gmail.com</span>
               </div>
               <div className="flex items-start space-x-3">
                 <MapPin className="w-4 h-4 text-gray-400 mt-0.5" />
                 <div className="text-sm text-gray-600 dark:text-gray-400">
-                  <p>123 Innovation Drive</p>
-                  <p>Tech City, TC 12345</p>
+                  <p>KNUST Campus</p>
+                  <p>Kumasi, Ghana</p>
                 </div>
               </div>
             </div>

@@ -53,7 +53,7 @@ const Contact = () => {
                   </div>
                   <div>
                     <p className="font-medium text-gray-900 dark:text-white">Phone Support</p>
-                    <p className="text-gray-600 dark:text-gray-300">+1 (555) 123-4567</p>
+                    <p className="text-gray-600 dark:text-gray-300">+233 599 656 732</p>
                     <p className="text-sm text-gray-500 dark:text-gray-400">24/7 Emergency Support</p>
                   </div>
                 </div>
@@ -64,7 +64,7 @@ const Contact = () => {
                   </div>
                   <div>
                     <p className="font-medium text-gray-900 dark:text-white">Email Support</p>
-                    <p className="text-gray-600 dark:text-gray-300">support@qtron.ai</p>
+                    <p className="text-gray-600 dark:text-gray-300">qtron@gmail.com</p>
                     <p className="text-sm text-gray-500 dark:text-gray-400">Response within 2 hours</p>
                   </div>
                 </div>
@@ -75,8 +75,8 @@ const Contact = () => {
                   </div>
                   <div>
                     <p className="font-medium text-gray-900 dark:text-white">Headquarters</p>
-                    <p className="text-gray-600 dark:text-gray-300">123 Innovation Drive</p>
-                    <p className="text-gray-600 dark:text-gray-300">Tech City, TC 12345</p>
+                    <p className="text-gray-600 dark:text-gray-300">KNUST Campus</p>
+                    <p className="text-gray-600 dark:text-gray-300">Kumasi, Ghana</p>
                   </div>
                 </div>
 
@@ -280,14 +280,14 @@ const Contact = () => {
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center space-y-3 sm:space-y-0 sm:space-x-6">
             <a
-              href="tel:+15551234567"
+              href="tel:+233599656732"
               className="bg-white text-warning-600 px-6 py-3 rounded-lg font-medium hover:bg-gray-100 transition-colors flex items-center space-x-2"
             >
               <Phone className="w-5 h-5" />
               <span>Call Emergency Line</span>
             </a>
             <a
-              href="mailto:emergency@qtron.ai"
+              href="mailto:qtron@gmail.com"
               className="bg-warning-700 text-white px-6 py-3 rounded-lg font-medium hover:bg-warning-800 transition-colors flex items-center space-x-2"
             >
               <Mail className="w-5 h-5" />
