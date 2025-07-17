@@ -126,15 +126,6 @@ const Login: React.FC<LoginProps> = ({ onSwitchToSignup }) => {
               </div>
             </div>
 
-            {/* Demo Credentials Info */}
-            <div className="bg-blue-50 dark:bg-blue-900 border border-blue-200 dark:border-blue-700 rounded-lg p-4">
-              <h4 className="text-sm font-medium text-blue-800 dark:text-blue-200 mb-2">Demo Credentials</h4>
-              <div className="text-xs text-blue-700 dark:text-blue-300 space-y-1">
-                <p><strong>Username:</strong> admin1</p>
-                <p><strong>Password:</strong> 123456.qwerty</p>
-              </div>
-            </div>
-
             {/* Submit Button */}
             <button
               type="submit"
