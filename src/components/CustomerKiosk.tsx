@@ -176,6 +176,22 @@ const CustomerKiosk = () => {
               
               <div>
                 <label className="block text-sm lg:text-base font-medium text-gray-700 dark:text-gray-300 mb-2 lg:mb-3">
+                  Phone Number (Optional)
+                </label>
+                <input
+                  type="tel"
+                  value={formData.phone}
+                  onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                  className="w-full px-3 lg:px-4 py-2 lg:py-3 text-sm lg:text-base border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary-600 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                  placeholder="Enter your phone number for notifications"
+                />
+                <p className="text-xs lg:text-sm text-gray-500 dark:text-gray-400 mt-1">
+                  We'll send you updates about your queue position and counter assignment
+                </p>
+              </div>
+              
+              <div>
+                <label className="block text-sm lg:text-base font-medium text-gray-700 dark:text-gray-300 mb-2 lg:mb-3">
                   Service Type
                 </label>
                 <select
@@ -248,7 +264,7 @@ const CustomerKiosk = () => {
               </div>
               
               <div className="bg-gray-50 dark:bg-gray-700 rounded-lg p-4 lg:p-6">
-                {formData.phone && formData.notifications && (
+                {formData.phone && (
                   <div className="mb-4 p-3 bg-success-50 dark:bg-success-900 border border-success-200 dark:border-success-700 rounded-lg">
                     <div className="flex items-center space-x-2">
                       <CheckCircle className="w-4 h-4 text-success-600" />
@@ -268,6 +284,12 @@ const CustomerKiosk = () => {
                     <span className="text-gray-600 dark:text-gray-400">Name:</span>
                     <span className="font-medium">{formData.name}</span>
                   </div>
+                  {formData.phone && (
+                    <div className="flex justify-between">
+                      <span className="text-gray-600 dark:text-gray-400">Phone:</span>
+                      <span className="font-medium">{formData.phone}</span>
+                    </div>
+                  )}
                   <div className="flex justify-between">
                     <span className="text-gray-600 dark:text-gray-400">Service:</span>
                     <span className="font-medium">{formData.serviceType}</span>
