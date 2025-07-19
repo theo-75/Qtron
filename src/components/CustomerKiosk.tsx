@@ -99,7 +99,8 @@ const CustomerKiosk = () => {
       name: '',
       customerType: 'regular',
       serviceType: '',
-      phone: ''
+      phone: '',
+      notifications: true
     });
     setGeneratedTicket(null);
   };
