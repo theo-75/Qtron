@@ -248,6 +248,20 @@ const CustomerKiosk = () => {
               </div>
               
               <div className="bg-gray-50 dark:bg-gray-700 rounded-lg p-4 lg:p-6">
+                {formData.phone && formData.notifications && (
+                  <div className="mb-4 p-3 bg-success-50 dark:bg-success-900 border border-success-200 dark:border-success-700 rounded-lg">
+                    <div className="flex items-center space-x-2">
+                      <CheckCircle className="w-4 h-4 text-success-600" />
+                      <p className="text-sm text-success-800 dark:text-success-200 font-medium">
+                        Notifications Enabled
+                      </p>
+                    </div>
+                    <p className="text-xs text-success-700 dark:text-success-300 mt-1">
+                      We'll send updates to {formData.phone} about your queue status and counter assignment.
+                    </p>
+                  </div>
+                )}
+                
                 <h3 className="text-sm lg:text-base font-semibold text-gray-900 dark:text-white mb-3">Service Details</h3>
                 <div className="space-y-2 text-xs lg:text-sm">
                   <div className="flex justify-between">
