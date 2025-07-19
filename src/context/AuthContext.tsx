@@ -46,11 +46,11 @@ const USERS_DB = [
     id: '2',
     username: 'staff1',
     password: 'staff1pass',
-    email: 'staff@qtron.ai',
-    role: 'staff' as const,
+    email: 'staff1@qtron.ai',
+    role: 'agent' as const,
     organizationId: 'org-1',
-    firstName: 'Staff',
-    lastName: 'Member'
+    firstName: 'Dr. Sarah',
+    lastName: 'Johnson'
   }
 ];
 
