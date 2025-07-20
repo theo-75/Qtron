@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Activity, User, Lock, Eye, EyeOff, AlertCircle, Loader } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
+import { seedUsers } from '../utils/seedUsers';
 
 interface LoginProps {
   onSwitchToSignup: () => void;
@@ -9,7 +10,7 @@ interface LoginProps {
 const Login: React.FC<LoginProps> = ({ onSwitchToSignup }) => {
   const { login, loading } = useAuth();
   const [formData, setFormData] = useState({
-    username: '',
+    email: '',
     password: ''
   });
   const [showPassword, setShowPassword] = useState(false);
@@ -29,16 +30,16 @@ const Login: React.FC<LoginProps> = ({ onSwitchToSignup }) => {
     setError('');
     setIsSubmitting(true);
 
-    if (!formData.username || !formData.password) {
+    if (!formData.email || !formData.password) {
       setError('Please fill in all fields');
       setIsSubmitting(false);
       return;
     }
 
     try {
-      const success = await login(formData.username, formData.password);
+      const success = await login(formData.email, formData.password);
       if (!success) {
-        setError('Invalid username or password');
+        setError('Invalid email or password');
       }
     } catch (err) {
       setError('An error occurred during login');
@@ -75,19 +76,19 @@ const Login: React.FC<LoginProps> = ({ onSwitchToSignup }) => {
             {/* Username Field */}
             <div>
               <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                Username
+                Email Address
               </label>
               <div className="relative">
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                   <User className="w-5 h-5 text-gray-400" />
                 </div>
                 <input
-                  type="text"
-                  name="username"
-                  value={formData.username}
+                  type="email"
+                  name="email"
+                  value={formData.email}
                   onChange={handleChange}
                   className="w-full pl-10 pr-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary-600 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400"
-                  placeholder="Enter your username"
+                  placeholder="Enter your email address"
                   disabled={isSubmitting}
                 />
               </div>
@@ -142,6 +143,19 @@ const Login: React.FC<LoginProps> = ({ onSwitchToSignup }) => {
               )}
             </button>
 
+            {/* Seed Users Button for Development */}
+            <div className="pt-4 border-t border-gray-200 dark:border-gray-700">
+              <button
+                type="button"
+                onClick={seedUsers}
+                className="w-full bg-gray-600 text-white py-2 px-4 rounded-lg font-medium hover:bg-gray-700 transition-colors text-sm"
+              >
+                🌱 Seed Demo Accounts (Development)
+              </button>
+              <p className="text-xs text-gray-500 dark:text-gray-400 mt-2 text-center">
+                Creates admin1@qtron.com and staff1@qtron.com accounts
+              </p>
+            </div>
             {/* Signup Link */}
             <div className="text-center pt-4 border-t border-gray-200 dark:border-gray-700">
               <p className="text-sm text-gray-600 dark:text-gray-400">
