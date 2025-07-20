@@ -11,7 +11,6 @@ const Signup: React.FC<SignupProps> = ({ onSwitchToLogin }) => {
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
-    username: '',
     email: '',
     password: '',
     confirmPassword: '',
@@ -31,7 +30,7 @@ const Signup: React.FC<SignupProps> = ({ onSwitchToLogin }) => {
   };
 
   const validateForm = () => {
-    if (!formData.firstName || !formData.lastName || !formData.username || 
+    if (!formData.firstName || !formData.lastName ||
         !formData.email || !formData.password || !formData.organizationName) {
       setError('Please fill in all required fields');
       return false;
@@ -67,16 +66,15 @@ const Signup: React.FC<SignupProps> = ({ onSwitchToLogin }) => {
 
     try {
       const success = await signup({
-        username: formData.username,
-        password: formData.password,
         email: formData.email,
+        password: formData.password,
         firstName: formData.firstName,
         lastName: formData.lastName,
         organizationName: formData.organizationName
       });
 
       if (!success) {
-        setError('Username already exists. Please choose a different username.');
+        setError('Email already exists. Please choose a different email.');
       }
     } catch (err) {
       setError('An error occurred during signup');
@@ -163,43 +161,19 @@ const Signup: React.FC<SignupProps> = ({ onSwitchToLogin }) => {
               </div>
             </div>
 
-            {/* Username Field */}
-            <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                Username *
-              </label>
-              <div className="relative">
-                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                  <User className="w-5 h-5 text-gray-400" />
-                </div>
-                <input
-                  type="text"
-                  name="username"
-                  value={formData.username}
-                  onChange={handleChange}
-                  className="w-full pl-10 pr-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary-600 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400"
-                  placeholder="Choose a username"
-                  disabled={isSubmitting}
-                />
-              </div>
-            </div>
-
             {/* Email Field */}
             <div>
               <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                 Email Address *
               </label>
               <div className="relative">
-                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                  <Mail className="w-5 h-5 text-gray-400" />
-                </div>
                 <input
                   type="email"
                   name="email"
                   value={formData.email}
                   onChange={handleChange}
-                  className="w-full pl-10 pr-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary-600 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400"
-                  placeholder="Enter your email"
+                  className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary-600 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400"
+                  placeholder="Enter your email address"
                   disabled={isSubmitting}
                 />
               </div>

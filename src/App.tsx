@@ -89,7 +89,7 @@ function AppContent() {
             <div className="flex items-center space-x-3 mb-3">
               <div className="w-8 h-8 bg-primary-100 dark:bg-primary-900 rounded-full flex items-center justify-center">
                 <span className="text-sm font-medium text-primary-600 dark:text-primary-400">
-                  {user?.firstName?.[0]}{user?.lastName?.[0]}
+                  {user?.firstName?.[0] || ''}{user?.lastName?.[0] || ''}
                 </span>
               </div>
               <div>
@@ -97,7 +97,7 @@ function AppContent() {
                   {user?.firstName} {user?.lastName}
                 </p>
                 <p className="text-xs text-gray-600 dark:text-gray-400 capitalize">
-                  {user?.role} • {user?.username}
+                  {user?.role} • {user?.email}
                 </p>
               </div>
             </div>
