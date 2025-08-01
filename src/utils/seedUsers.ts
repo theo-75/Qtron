@@ -16,7 +16,7 @@ export const seedUsers = async () => {
       console.log('🏢 Organization ID:', result.organizationId);
       
       // Show success message to user
-      alert(`User accounts created successfully!\n\nAdmin: admin1@qtron.com / admin1pass\nStaff: staff1@qtron.com / staff1pass\n\nOrganization ID: ${result.organizationId}`);
+      alert(`Demo accounts created successfully!\n\n👨‍💼 Administrator:\nEmail: admin1@qtron.com\nPassword: admin1pass\n\n👩‍⚕️ Staff Member:\nEmail: staff1@qtron.com\nPassword: staff1pass\n\n🏢 Organization: ${result.organizationId}`);
       
       return result;
     } else {
@@ -26,7 +26,7 @@ export const seedUsers = async () => {
     }
   } catch (error) {
     console.error('❌ Error calling seed function:', error);
-    alert(`Error creating user accounts: ${error.message}`);
+    alert(`Error creating user accounts: ${error?.message || 'Unknown error'}`);
     return null;
   }
 };

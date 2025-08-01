@@ -65,16 +65,17 @@ const Signup: React.FC<SignupProps> = ({ onSwitchToLogin }) => {
     setIsSubmitting(true);
 
     try {
-      const success = await signup({
+      const result = await signup({
         email: formData.email,
         password: formData.password,
         firstName: formData.firstName,
         lastName: formData.lastName,
-        organizationName: formData.organizationName
+        organizationName: formData.organizationName,
+        role: 'admin' // Default role for signup
       });
 
-      if (!success) {
-        setError('Email already exists. Please choose a different email.');
+      if (!result.success) {
+        setError(result.error || 'Failed to create account. Please try again.');
       }
     } catch (err) {
       setError('An error occurred during signup');

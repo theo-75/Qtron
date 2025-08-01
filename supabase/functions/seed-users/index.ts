@@ -78,7 +78,7 @@ Deno.serve(async (req: Request) => {
       {
         email: 'staff1@qtron.com',
         password: 'staff1pass',
-        firstName: 'Dr. Sarah',
+        firstName: 'Sarah',
         lastName: 'Johnson',
         role: 'service_agent',
         organizationId
@@ -89,14 +89,125 @@ Deno.serve(async (req: Request) => {
 
     for (const userData of usersToCreate) {
       try {
-        // Check if user already exists in auth
-        const { data: existingAuthUser } = await supabase.auth.admin.getUserByEmail(userData.email);
+        // Check if user already exists in public.users table first
+        const { data: existingUser } = await supabase
+          .from('users')
+          .select('id, email')
+          .eq('email', userData.email)
+          .single();
         
-        let authUserId: string;
+        if (existingUser) {
+          console.log(`User already exists: ${userData.email}`);
+          results.push({
+            email: userData.email,
+            status: 'exists',
+            message: 'User already exists'
+          });
+          continue;
+        }
 
-        if (existingAuthUser.user) {
-          authUserId = existingAuthUser.user.id;
-          console.log(`Auth user already exists: ${userData.email}`);
+        // Create user in Supabase Auth with email confirmation disabled
+        const { data: authUser, error: authError } = await supabase.auth.admin.createUser({
+          email: userData.email,
+          password: userData.password,
+          email_confirm: true, // Auto-confirm email for demo accounts
+          user_metadata: {
+            first_name: userData.firstName,
+            last_name: userData.lastName
+          }
+        });
+
+        if (authError) {
+          throw new Error(`Failed to create auth user ${userData.email}: ${authError.message}`);
+        }
+
+        if (!authUser.user) {
+          throw new Error(`No user returned from auth creation for ${userData.email}`);
+        }
+
+        console.log(`✅ Created auth user: ${userData.email} (ID: ${authUser.user.id})`);
+
+        // Create corresponding profile in public.users table
+        const { error: userError } = await supabase
+          .from('users')
+          .insert({
+            id: authUser.user.id, // Same ID as auth.users
+            email: userData.email,
+            first_name: userData.firstName,
+            last_name: userData.lastName,
+            role: userData.role,
+            organization_id: userData.organizationId,
+            phone_number: null
+          });
+
+        if (userError) {
+          // If profile creation fails, clean up the auth user
+          await supabase.auth.admin.deleteUser(authUser.user.id);
+          throw new Error(`Failed to create user profile ${userData.email}: ${userError.message}`);
+        }
+
+        console.log(`✅ Created user profile: ${userData.email}`);
+
+        results.push({
+          email: userData.email,
+          status: 'created',
+          authUserId: authUser.user.id,
+          organizationId: userData.organizationId,
+          role: userData.role
+        });
+
+      } catch (error) {
+        console.error(`❌ Error creating user ${userData.email}:`, error);
+        results.push({
+          email: userData.email,
+          status: 'error',
+          error: error.message
+        });
+      }
+    }
+
+    // Summary of results
+    const created = results.filter(r => r.status === 'created').length;
+    const existing = results.filter(r => r.status === 'exists').length;
+    const errors = results.filter(r => r.status === 'error').length;
+
+    return new Response(
+      JSON.stringify({
+        success: true,
+        message: `User seeding completed: ${created} created, ${existing} existing, ${errors} errors`,
+        organizationId,
+        summary: {
+          created,
+          existing,
+          errors
+        },
+        results
+      }),
+      {
+        headers: {
+          'Content-Type': 'application/json',
+          ...corsHeaders,
+        },
+      }
+    );
+
+  } catch (error) {
+    console.error('❌ Seeding error:', error);
+    return new Response(
+      JSON.stringify({
+        success: false,
+        error: error.message
+      }),
+      {
+        status: 500,
+        headers: {
+          'Content-Type': 'application/json',
+          ...corsHeaders,
+        },
+      }
+    );
+  }
+});
         } else {
           // Create user in Supabase Auth
           const { data: authUser, error: authError } = await supabase.auth.admin.createUser({
