@@ -153,7 +153,7 @@ const Login: React.FC<LoginProps> = ({ onSwitchToSignup }) => {
                 🌱 Seed Demo Accounts (Development)
               </button>
               <p className="text-xs text-gray-500 dark:text-gray-400 mt-2 text-center">
-                Creates admin1@qtron.com and staff1@qtron.com accounts
+                Creates admin1@gmail.com and staff1@qtron.com accounts
               </p>
             </div>
             {/* Signup Link */}

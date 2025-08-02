@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Users, Clock, Activity, Settings as SettingsIcon, BarChart3, UserCheck, AlertCircle, ChevronRight, Monitor, Smartphone, Menu, X, Sun, Moon, Phone, LogOut } from 'lucide-react';
+import LandingPage from './components/LandingPage';
 import Dashboard from './components/Dashboard';
 import CustomerKiosk from './components/CustomerKiosk';
 import StaffPanel from './components/StaffPanel';
@@ -20,7 +21,7 @@ function AppContent() {
   const [activeView, setActiveView] = useState('dashboard');
   const [currentTime, setCurrentTime] = useState(new Date());
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const [authView, setAuthView] = useState<'login' | 'signup'>('login');
+  const [authView, setAuthView] = useState<'landing' | 'login' | 'signup'>('landing');
 
   useEffect(() => {
     const timer = setInterval(() => setCurrentTime(new Date()), 1000);
@@ -29,7 +30,14 @@ function AppContent() {
 
   // If not authenticated, show login/signup
   if (!isAuthenticated) {
-    if (authView === 'login') {
+    if (authView === 'landing') {
+      return (
+        <LandingPage 
+          onGetStarted={() => setAuthView('signup')}
+          onSignIn={() => setAuthView('login')}
+        />
+      );
+    } else if (authView === 'login') {
       return <Login onSwitchToSignup={() => setAuthView('signup')} />;
     } else {
       return <Signup onSwitchToLogin={() => setAuthView('login')} />;

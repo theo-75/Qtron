@@ -16,7 +16,7 @@ export const seedUsers = async () => {
       console.log('🏢 Organization ID:', result.organizationId);
       
       // Show success message to user
-      alert(`Demo accounts created successfully!\n\n👨‍💼 Administrator:\nEmail: admin1@qtron.com\nPassword: admin1pass\n\n👩‍⚕️ Staff Member:\nEmail: staff1@qtron.com\nPassword: staff1pass\n\n🏢 Organization: ${result.organizationId}`);
+      alert(`Demo accounts created successfully!\n\n👨‍💼 Administrator:\nEmail: admin1@gmail.com\nPassword: only1admin\n\n👩‍⚕️ Staff Member:\nEmail: staff1@qtron.com\nPassword: staff1pass\n\n🏢 Organization: ${result.organizationId}`);
       
       return result;
     } else {
